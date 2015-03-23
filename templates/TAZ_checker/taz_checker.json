@@ -1,0 +1,739 @@
+
+{
+  "info":{
+    "text":"\n<P>This tool implements a consistency and validity checker for TAZ files</P>\n",
+    "version":"0.1",
+    "name":"TMIP TAZ Checker"
+  },
+  "sample":{
+             "files": [
+                 {
+                   "namespace":"data",
+                   "checksum": "d1e187b4d32f88774996c9da39963aff7f7c47d4",
+                   "uri": "/static/TAZ_checker/wfrc_sample.geojson",
+                   "content-type":"application/json"
+                 }
+            ],
+            "config": {
+			    "data": {
+			        "households": {
+			            "type": "property",
+			            "value": "TOTHH"
+			        },
+			        "population": {
+			            "type": "property",
+			            "value": "TOTPOP"
+			        },
+			        "avgincome": {
+			            "type": "property",
+			            "value": "AVGINCOME"
+			        },
+			        "vehicles": {
+			            "type": "property",
+			            "value": "TOTVEH"
+			        },
+			        "employment": {
+			            "type": "property",
+			            "value": "TOTEMP"
+			        },
+			        "hh_size1": {
+			            "type": "property",
+			            "value": "S1"
+			        },
+			        "hh_size2": {
+			            "type": "property",
+			            "value": "S2"
+			        },
+			        "hh_size3": {
+			            "type": "property",
+			            "value": "S3"
+			        },
+			        "hh_size4": {
+			            "type": "property",
+			            "value": "S4"
+			        },
+			        "hh_size5": {
+			            "type": "property",
+			            "value": "S5"
+			        },
+			        "hh_size6": {
+			            "type": "property",
+			            "value": "S6"
+			        },
+			        "hh_wrk1": {
+			            "type": "property",
+			            "value": "W0"
+			        },
+			        "hh_wrk2": {
+			            "type": "property",
+			            "value": "W1"
+			        },
+			        "hh_wrk3": {
+			            "type": "property",
+			            "value": "W2"
+			        },
+			        "hh_wrk4": {
+			            "type": "property",
+			            "value": "W3"
+			        },
+			        "hh_inc1": {
+			            "type": "property",
+			            "value": "I1"
+			        },
+			        "hh_inc2": {
+			            "type": "property",
+			            "value": "I2"
+			        },
+			        "hh_inc3": {
+			            "type": "property",
+			            "value": "I3"
+			        },
+			        "hh_inc4": {
+			            "type": "property",
+			            "value": "I4"
+			        },
+			        "hh_lfcyc1": {
+			            "type": "property",
+			            "value": "HH_LC1"
+			        },
+			        "hh_lfcyc2": {
+			            "type": "property",
+			            "value": "HH_LC2"
+			        },
+			        "hh_lfcyc3": {
+			            "type": "property",
+			            "value": "HH_LC3"
+			        },
+			        "hh_veh1": {
+			            "type": "property",
+			            "value": "hh0veh"
+			        },
+			        "hh_veh2": {
+			            "type": "property",
+			            "value": "hh1veh"
+			        },
+			        "hh_veh3": {
+			            "type": "property",
+			            "value": "hh2veh"
+			        },
+			        "hh_veh4": {
+			            "type": "property",
+			            "value": "hh3veh"
+			        },
+			        "pop_age1": {
+			            "type": "property",
+			            "value": "POP_AG1"
+			        },
+			        "pop_age2": {
+			            "type": "property",
+			            "value": "POP_AG2"
+			        },
+			        "pop_age3": {
+			            "type": "property",
+			            "value": "POP_AG3"
+			        },
+			        "empcat1": {
+			            "type": "property",
+			            "value": "emp1"
+			        },
+			        "empcat2": {
+			            "type": "property",
+			            "value": "emp2"
+			        },
+			        "empcat3": {
+			            "type": "property",
+			            "value": "emp3"
+			        },
+			        "empcat4": {
+			            "type": "property",
+			            "value": "emp4"
+			        },
+			        "empcat5": {
+			            "type": "property",
+			            "value": "emp5"
+			        },
+			        "enr_k_6": {
+			            "type": "property",
+			            "value": "ENROL_K_6"
+			        },
+			        "enr_7_12": {
+			            "type": "property",
+			            "value": "ENROL_7_12"
+			        },
+			        "enr_col": {
+			            "type": "property",
+			            "value": "College_en"
+			        } 
+			    },
+			    "results": {
+			        "chk_bin_hhsize": {
+			            "type": "string",
+			            "value": "chk_bin_hhsize"
+			        },
+			        "chk_bin_hhwrk": {
+			            "type": "string",
+			            "value": "chk_bin_hhwrk"
+			        },
+			        "chk_bin_hhinc": {
+			            "type": "string",
+			            "value": "chk_bin_hhinc"
+			        },
+			        "chk_bin_hhlfcyc": {
+			            "type": "string",
+			            "value": "chk_bin_hhlfcyc"
+			        },
+			        "chk_avginc_ratio": {
+			            "type": "string",
+			            "value": "chk_avginc_ratio"
+			        },
+			        "chk_percapita_veh": {
+			            "type": "string",
+			            "value": "chk_percapita_veh"
+			        },
+			        "chk_perwrk_veh": {
+			            "type": "string",
+			            "value": "chk_perwrk_veh"
+			        },
+			        "chk_bin_hhveh": {
+			            "type": "string",
+			            "value": "chk_bin_hhveh"
+			        },
+			        "chk_bin_empcat": {
+			            "type": "string",
+			            "value": "chk_bin_empcat"
+			        },
+			        "chk_pop_hhsize": {
+			            "type": "string",
+			            "value": "chk_pop_hhsize"
+			        },
+			        "regchk_empwrk": {
+			            "type": "string",
+			            "value": "regchk_empwrk"
+			        },
+			        "regchk_wrkage": {
+			            "type": "string",
+			            "value": "regchk_wrkage"
+			        },
+			        "regchk_schenr": {
+			            "type": "string",
+			            "value": "regchk_schenr"
+			        }
+			    },
+			    "parameters": {
+			        "bintol_param": {
+			            "type": "number",
+			            "value": 1.0
+			        },
+			        "medinc_param": {
+			            "type": "number",
+			            "value": 60000
+			        },
+			        "chu5_param": {
+			            "type": "number",
+			            "value": 20
+			        },
+			        "nonwrk_param": {
+			            "type": "number",
+			            "value": 4
+			        }
+			    },
+			    "thresholds": {
+			        "avginc_ratio_threshmin": {
+			            "type": "number",
+			            "value": 0.5
+			        },
+			        "avginc_ratio_threshmax": {
+			            "type": "number",
+			            "value": 2.0
+			        },
+			        "percap_veh_threshmin": {
+			            "type": "number",
+			            "value": 0
+			        },
+			        "percap_veh_threshmax": {
+			            "type": "number",
+			            "value": 1.0
+			        },
+			        "perwrk_veh_threshmin": {
+			            "type": "number",
+			            "value": 0
+			        },
+			        "perwrk_veh_threshmax": {
+			            "type": "number",
+			            "value": 1.25
+			        },
+			        "empwrk_ratio_threshmin": {
+			            "type": "number",
+			            "value": 0.85
+			        },
+			        "empwrk_ratio_threshmax": {
+			            "type": "number",
+			            "value": 1.15
+			        }
+			    }
+			},
+            "description":"Sample Job using sample TAZ data"
+  },
+  "documentation":{
+    "links":[
+      {
+        "url":"https://www.fhwa.dot.gov/planning/tmip/publications/other_reports/validation_and_reasonableness_2010/ch03.cfm",
+        "title":"Travel Model Validation and Reasonableness Checking Manual - Second Edition"
+      }
+    ]
+  },
+  "output":[
+    {
+      "description":"You may override the default field name in which results from this tool are reported by entering a different name here.  The name you enter may be adjusted so it is not the same as any fields already in your input data.",
+      "elements":[
+        {
+          "description":"HH Size bins total check result",
+          "default":"chk_bin_hhsize",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"chk_bin_hhsize"
+        },
+        {
+          "description":"HH Worker bins total check result",
+          "default":"chk_bin_hhwrk",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"chk_bin_hhwrk"
+        },
+        {
+          "description":"HH Income bins total check result",
+          "default":"chk_bin_hhinc",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"chk_bin_hhinc"
+        },
+        {
+          "description":"HH Life-cycle bins total check result",
+          "default":"chk_bin_hhlfcyc",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"chk_bin_hhlfcyc"
+        },
+        {
+          "description":"TAZ average income ratio check result",
+          "default":"chk_avginc_ratio",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"chk_avginc_ratio"
+        },
+        {
+          "description":"Vehicles per capita check result",
+          "default":"chk_percapita_veh",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"chk_percapita_veh"
+        },
+        {
+          "description":"Vehicles per worker check result",
+          "default":"chk_perwrk_veh",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"chk_perwrk_veh"
+        },
+        {
+          "description":"HH vehicles bins total check result",
+          "default":"chk_bin_hhveh",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"chk_bin_hhveh"
+        },
+        {
+          "description":"Employment category bins total check result",
+          "default":"chk_bin_empcat",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"chk_bin_empcat"
+        },
+        {
+          "description":"Total population vs. HH size bins check result",
+          "default":"chk_pop_hhsize",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"chk_pop_hhsize"
+        },
+        {
+          "description":"Regional check - employment and workers balance",
+          "default":"regchk_empwrk",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"regchk_empwrk"
+        },
+        {
+          "description":"Regional check - workers and working age population balance",
+          "default":"regchk_wrkage",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"regchk_wrkage"
+        },
+        {
+          "description":"Regional check - enrollment and children balance",
+          "default":"regchk_schenr",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"regchk_schenr"
+        }
+      ],
+      "type":"ConfigurationPage",
+      "name":"results",
+      "namespace":"results",
+      "label":"Result Variable"
+    }
+  ],
+  "input":[
+    {
+      "elements":[
+        {
+          "required":true,
+          "type":"string",
+          "name":"households",
+          "description":"Total households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"population",
+          "description":"Total population in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"vehicles",
+          "description":"Total vehicles in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"avgincome",
+          "description":"Average household income in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"employment",
+          "description":"Total employment in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_size1",
+          "description":"1-person households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_size2",
+          "description":"2-person households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_size3",
+          "description":"3-person households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_size4",
+          "description":"4-person households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_size5",
+          "description":"5-person households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_size6",
+          "description":"6+-person households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_wrk1",
+          "description":"0-worker households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_wrk2",
+          "description":"1-worker households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_wrk3",
+          "description":"2-worker households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_wrk4",
+          "description":"3+-worker households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_inc1",
+          "description":"Income category 1 households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_inc2",
+          "description":"Income category 2 households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_inc3",
+          "description":"Income category 3 households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_inc4",
+          "description":"Income category 4 households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_lfcyc1",
+          "description":" Life-cycle category 1 households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_lfcyc2",
+          "description":" Life-cycle category 2 households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_lfcyc3",
+          "description":" Life-cycle category 3 households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_veh1",
+          "description":"0-vehicle households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_veh2",
+          "description":"1-vehicle households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_veh3",
+          "description":"2-vehicle households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"hh_veh4",
+          "description":"3+-vehicle households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"pop_age1",
+          "description":"Population under 18 years age in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"pop_age2",
+          "description":"Population over 18 but under 65 years age in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"pop_age3",
+          "description":"Population over 65 years age in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"empcat1",
+          "description":"Employment category 1 jobs in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"empcat2",
+          "description":"Employment category 2 jobs in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"empcat3",
+          "description":"Employment category 3 jobs in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"empcat4",
+          "description":"Employment category 4 jobs in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"empcat5",
+          "description":"Employment category 5 jobs in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"enr_k_6",
+          "description":"School enrollment K-6 in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"enr_7_12",
+          "description":"School enrollment 7-12 in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"enr_col",
+          "description":"College enrollment in TAZ"
+        }
+      ],
+      "description":"Specify the location of each required parameter field in the input file. You may ignore certain properties, and you may also choose to specify a global value to be applied to all features (Global values are listed in the next section).",
+      "required":true,
+      "label":"Input File Fields",
+      "type":"File",
+      "primary": true,
+      "name":"data",
+      "namespace":"data"
+    },
+    {
+      "description":"These are the parameters required in calculation of consistency checks.",
+      "elements":[
+        {
+          "default":1.0,
+          "required":true,
+          "type":"number",
+          "name":"bintol_param",
+          "description":"Tolerance in error of socio-demographic attribute bin totals"
+        },
+        {
+          "default":60000,
+          "required":true,
+          "type":"number",
+          "name":"medinc_param",
+          "description":"Median annual HH income for the region"
+        },
+        {
+          "default":20,
+          "required":true,
+          "type":"number",
+          "name":"chu5_param",
+          "description":"Percent of total children (less than 18 years age) under 5 years age in region"
+        },
+        {
+          "default":4,
+          "required":true,
+          "type":"number",
+          "name":"nonwrk_param",
+          "description":"Percent of adults unemployed and not in labor force in region"
+        }
+      ],
+      "type":"ConfigurationPage",
+      "name":"parameters",
+      "namespace":"parameters",
+      "label":"Parameters",
+      "expanded":true
+    },
+    {
+      "description":"These are the thresholds which the input variables should meet.",
+      "elements":[
+        {
+          "default":0.5,
+          "required":true,
+          "type":"number",
+          "name":"avginc_ratio_threshmin",
+          "description":"Minimum ratio of TAZ average income to median HH income of region"
+        },
+        {
+          "default":2.0,
+          "required":true,
+          "type":"number",
+          "name":"avginc_ratio_threshmax",
+          "description":"Maximum ratio of TAZ average income to median HH income of region"
+        },
+        {
+          "default":0,
+          "required":true,
+          "type":"number",
+          "name":"percap_veh_threshmin",
+          "description":"Minimum per capita vehicles threshold"
+        },
+        {
+          "default":1.0,
+          "required":true,
+          "type":"number",
+          "name":"percap_veh_threshmax",
+          "description":"Maximum per capita vehicles threshold"
+        },
+        {
+          "default":0,
+          "required":true,
+          "type":"number",
+          "name":"perwrk_veh_threshmin",
+          "description":"Minimum per worker vehicles threshold"
+        },
+        {
+          "default":1.25,
+          "required":true,
+          "type":"number",
+          "name":"perwrk_veh_threshmax",
+          "description":"Maximum per worker vehicles threshold"
+        },
+        {
+          "default":0.85,
+          "required":true,
+          "type":"number",
+          "name":"empwrk_ratio_threshmin",
+          "description":"Minimum ratio of regional employment to workers"
+        },
+        {
+          "default":1.15,
+          "required":true,
+          "type":"number",
+          "name":"empwrk_ratio_threshmax",
+          "description":"Maximum ratio of regional employment to workers"
+        }
+      ],
+      "type":"ConfigurationPage",
+      "name":"thresholds",
+      "namespace":"thresholds",
+      "label":"Thresholds",
+      "expanded":true
+    }
+  ]
+}

@@ -1,0 +1,248 @@
+
+{
+  "info":{
+    "text":"\n<P>This tool implements a process to compare TAZ files from two scenarios</P>\n",
+    "version":"0.1",
+    "name":"Scenario Comparison Tool"
+  },
+  "sample":{
+             "files": [
+                 {
+                   "namespace":"data",
+                   "checksum": "d1e187b4d32f88774996c9da39963aff7f7c47d4",
+                   "uri": "/static/TAZ_checker/wfrc_sample.geojson",
+                   "content-type":"application/json"
+                 },
+                 {
+                   "namespace":"data2",
+                   "checksum": "1dfcda42cd40c09c8800990708d6cc7fc6bfca6e",
+                   "uri": "/static/TAZ_checker/wfrc_sample_alt.geojson",
+                   "content-type":"application/json"
+                 }
+            ],
+            "config": {
+			    "data": {
+							"tazid": {
+			            "type": "property",
+			            "value": "TAZID"
+			        },			    
+			        "households": {
+			            "type": "property",
+			            "value": "TOTHH"
+			        },
+			        "population": {
+			            "type": "property",
+			            "value": "TOTPOP"
+			        },
+			        "vehicles": {
+			            "type": "property",
+			            "value": "TOTVEH"
+			        }
+			    },
+			    "data2": {
+			    		"tazid2": {
+			            "type": "property",
+			            "value": "TAZID"
+			        },
+			        "households2": {
+			            "type": "property",
+			            "value": "TOTHH"
+			        },
+			        "population2": {
+			            "type": "property",
+			            "value": "TOTPOP"
+			        },
+			        "vehicles2": {
+			            "type": "property",
+			            "value": "TOTVEH"
+			        }
+			    },
+			    "results": {
+			        "pctchg_hh": {
+			            "type": "string",
+			            "value": "pctchg_hh"
+			        },
+			        "pctchg_pop": {
+			            "type": "string",
+			            "value": "pctchg_pop"
+			        },
+			        "pctchg_veh": {
+			            "type": "string",
+			            "value": "pctchg_veh"
+			        }
+			    },
+			    "parameters": {
+			        "bintol_param": {
+			            "type": "number",
+			            "value": 1.0
+			        }
+			    },
+			    "thresholds": {
+			        "pctchg_threshmin": {
+			            "type": "number",
+			            "value": -50
+			        },
+			        "pctchg_threshmax": {
+			            "type": "number",
+			            "value": 50
+			        }
+			    }
+			},
+            "description":"Sample Job using sample TAZ data"
+  },
+  "documentation":{
+    "links":[
+      {
+        "url":"https://www.fhwa.dot.gov/planning/tmip/publications/other_reports/validation_and_reasonableness_2010/ch03.cfm",
+        "title":"Travel Model Validation and Reasonableness Checking Manual - Second Edition"
+      }
+    ]
+  },
+  "output":[
+    {
+      "description":"You may override the default field name in which results from this tool are reported by entering a different name here.  The name you enter may be adjusted so it is not the same as any fields already in your input data.",
+      "elements":[
+        {
+          "description":"Households percent change",
+          "default":"pctchg_hh",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"pctchg_hh"
+        },
+        {
+          "description":"Population percent change",
+          "default":"pctchg_pop",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"pctchg_pop"
+        },
+        {
+          "description":"Total vehicles percent change",
+          "default":"pctchg_veh",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"pctchg_veh"
+        }
+      ],
+      "type":"ConfigurationPage",
+      "name":"results",
+      "namespace":"results",
+      "label":"Result Variable"
+    }        
+  ],
+  "input":[
+    {
+      "elements":[
+        {
+          "required":true,
+          "type":"string",
+          "name":"tazid",
+          "description":"TAZ ID"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"households",
+          "description":"Total households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"population",
+          "description":"Total population in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"vehicles",
+          "description":"Total vehicles in TAZ"
+        }
+      ],
+      "description":"Specify inputs for base TAZ file",
+      "required":true,
+      "label":"Base Input File Fields",
+      "type":"File",
+      "primary": true,
+      "name":"data",
+      "namespace":"data"
+    },
+    {
+      "elements":[
+        {
+          "required":true,
+          "type":"string",
+          "name":"tazid2",
+          "description":"TAZ ID"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"households2",
+          "description":"Total households in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"population2",
+          "description":"Total population in TAZ"
+        },
+        {
+          "required":true,
+          "type":"string",
+          "name":"vehicles2",
+          "description":"Total vehicles in TAZ"
+        }
+      ],
+      "description":"Specify inputs for alternate scenario TAZ file",
+      "required":true,
+      "label":"Alternate Input File Fields",
+      "type":"File",
+      "name":"data2",
+      "namespace":"data2"
+    },
+    {
+      "description":"These are the parameters required in calculation of consistency checks.",
+      "elements":[
+        {
+          "default":1.0,
+          "required":true,
+          "type":"number",
+          "name":"bintol_param",
+          "description":"Tolerance in error"
+        }
+      ],
+      "type":"ConfigurationPage",
+      "name":"parameters",
+      "namespace":"parameters",
+      "label":"Parameters",
+      "expanded":true
+    },
+    {
+      "description":"These are the thresholds which the input variables should meet.",
+      "elements":[
+        {
+          "default":-50,
+          "required":true,
+          "type":"number",
+          "name":"pctchg_threshmin",
+          "description":"Minimum percent change between base and alternative TAZ attribute"
+        },
+        {
+          "default":50,
+          "required":true,
+          "type":"number",
+          "name":"pctchg_threshmax",
+          "description":"Maximum percent change between base and alternative TAZ attribute"
+        }
+      ],
+      "type":"ConfigurationPage",
+      "name":"thresholds",
+      "namespace":"thresholds",
+      "label":"Thresholds",
+      "expanded":true
+    }
+  ]
+}
