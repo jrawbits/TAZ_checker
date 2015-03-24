@@ -138,26 +138,27 @@
       "elements":[
         {
           "required":true,
-          "type":"string",
+          "type":"property",
           "name":"tazid",
           "description":"TAZ ID"
         },
         {
           "required":true,
-          "type":"string",
+          "type":"property",
           "name":"households",
           "description":"Total households in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
+          "required":false,
+          "type":"property",
           "name":"population",
           "description":"Total population in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
+          "required":false,
+          "type":"property",
           "name":"vehicles",
+          "display_if_filled": "population",
           "description":"Total vehicles in TAZ"
         }
       ],
@@ -173,25 +174,25 @@
       "elements":[
         {
           "required":true,
-          "type":"string",
+          "type":"property",
           "name":"tazid2",
           "description":"TAZ ID"
         },
         {
           "required":true,
-          "type":"string",
+          "type":"property",
           "name":"households2",
           "description":"Total households in TAZ"
         },
         {
           "required":true,
-          "type":"string",
+          "type":"property",
           "name":"population2",
           "description":"Total population in TAZ"
         },
         {
           "required":true,
-          "type":"string",
+          "type":"property",
           "name":"vehicles2",
           "description":"Total vehicles in TAZ"
         }
