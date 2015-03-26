@@ -59,111 +59,7 @@
 			        "hh_size6": {
 			            "type": "property",
 			            "value": "S6"
-			        },
-			        "hh_wrk1": {
-			            "type": "property",
-			            "value": "W0"
-			        },
-			        "hh_wrk2": {
-			            "type": "property",
-			            "value": "W1"
-			        },
-			        "hh_wrk3": {
-			            "type": "property",
-			            "value": "W2"
-			        },
-			        "hh_wrk4": {
-			            "type": "property",
-			            "value": "W3"
-			        },
-			        "hh_inc1": {
-			            "type": "property",
-			            "value": "I1"
-			        },
-			        "hh_inc2": {
-			            "type": "property",
-			            "value": "I2"
-			        },
-			        "hh_inc3": {
-			            "type": "property",
-			            "value": "I3"
-			        },
-			        "hh_inc4": {
-			            "type": "property",
-			            "value": "I4"
-			        },
-			        "hh_lfcyc1": {
-			            "type": "property",
-			            "value": "HH_LC1"
-			        },
-			        "hh_lfcyc2": {
-			            "type": "property",
-			            "value": "HH_LC2"
-			        },
-			        "hh_lfcyc3": {
-			            "type": "property",
-			            "value": "HH_LC3"
-			        },
-			        "hh_veh1": {
-			            "type": "property",
-			            "value": "hh0veh"
-			        },
-			        "hh_veh2": {
-			            "type": "property",
-			            "value": "hh1veh"
-			        },
-			        "hh_veh3": {
-			            "type": "property",
-			            "value": "hh2veh"
-			        },
-			        "hh_veh4": {
-			            "type": "property",
-			            "value": "hh3veh"
-			        },
-			        "pop_age1": {
-			            "type": "property",
-			            "value": "POP_AG1"
-			        },
-			        "pop_age2": {
-			            "type": "property",
-			            "value": "POP_AG2"
-			        },
-			        "pop_age3": {
-			            "type": "property",
-			            "value": "POP_AG3"
-			        },
-			        "empcat1": {
-			            "type": "property",
-			            "value": "emp1"
-			        },
-			        "empcat2": {
-			            "type": "property",
-			            "value": "emp2"
-			        },
-			        "empcat3": {
-			            "type": "property",
-			            "value": "emp3"
-			        },
-			        "empcat4": {
-			            "type": "property",
-			            "value": "emp4"
-			        },
-			        "empcat5": {
-			            "type": "property",
-			            "value": "emp5"
-			        },
-			        "enr_k_6": {
-			            "type": "property",
-			            "value": "ENROL_K_6"
-			        },
-			        "enr_7_12": {
-			            "type": "property",
-			            "value": "ENROL_7_12"
-			        },
-			        "enr_col": {
-			            "type": "property",
-			            "value": "College_en"
-			        } 
+			        }
 			    },
 			    "results": {
 			        "chk_bin_hhsize": {
@@ -402,225 +298,102 @@
       "elements":[
         {
           "required":true,
-          "type":"string",
+          "type":"property",
           "name":"households",
           "description":"Total households in TAZ"
         },
         {
           "required":true,
-          "type":"string",
+          "type":"property",
           "name":"population",
           "description":"Total population in TAZ"
         },
         {
           "required":true,
-          "type":"string",
+          "type":"property",
           "name":"vehicles",
           "description":"Total vehicles in TAZ"
         },
         {
           "required":true,
-          "type":"string",
+          "type":"property",
           "name":"avgincome",
           "description":"Average household income in TAZ"
         },
         {
           "required":true,
-          "type":"string",
+          "type":"property",
           "name":"employment",
           "description":"Total employment in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
+          "required":false,
+          "type":"property",
           "name":"hh_size1",
           "description":"1-person households in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
+          "required":false,
+          "type":"property",
           "name":"hh_size2",
+          "display_if_filled":"hh_size1",
           "description":"2-person households in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
+          "required":false,
+          "type":"property",
           "name":"hh_size3",
+          "display_if_filled":"hh_size2",
           "description":"3-person households in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
+          "required":false,
+          "type":"property",
           "name":"hh_size4",
+          "display_if_filled":"hh_size3",
           "description":"4-person households in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
+          "required":false,
+          "type":"property",
           "name":"hh_size5",
+          "display_if_filled":"hh_size4",
           "description":"5-person households in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
+          "required":false,
+          "type":"property",
           "name":"hh_size6",
-          "description":"6+-person households in TAZ"
+          "display_if_filled":"hh_size5",
+          "description":"6-person households in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
-          "name":"hh_wrk1",
-          "description":"0-worker households in TAZ"
+          "required":false,
+          "type":"property",
+          "name":"hh_size7",
+          "display_if_filled":"hh_size6",
+          "description":"7-person households in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
-          "name":"hh_wrk2",
-          "description":"1-worker households in TAZ"
+          "required":false,
+          "type":"property",
+          "name":"hh_size8",
+          "display_if_filled":"hh_size7",
+          "description":"8-person households in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
-          "name":"hh_wrk3",
-          "description":"2-worker households in TAZ"
+          "required":false,
+          "type":"property",
+          "name":"hh_size9",
+          "display_if_filled":"hh_size8",
+          "description":"9-person households in TAZ"
         },
         {
-          "required":true,
-          "type":"string",
-          "name":"hh_wrk4",
-          "description":"3+-worker households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"hh_inc1",
-          "description":"Income category 1 households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"hh_inc2",
-          "description":"Income category 2 households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"hh_inc3",
-          "description":"Income category 3 households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"hh_inc4",
-          "description":"Income category 4 households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"hh_lfcyc1",
-          "description":" Life-cycle category 1 households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"hh_lfcyc2",
-          "description":" Life-cycle category 2 households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"hh_lfcyc3",
-          "description":" Life-cycle category 3 households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"hh_veh1",
-          "description":"0-vehicle households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"hh_veh2",
-          "description":"1-vehicle households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"hh_veh3",
-          "description":"2-vehicle households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"hh_veh4",
-          "description":"3+-vehicle households in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"pop_age1",
-          "description":"Population under 18 years age in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"pop_age2",
-          "description":"Population over 18 but under 65 years age in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"pop_age3",
-          "description":"Population over 65 years age in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"empcat1",
-          "description":"Employment category 1 jobs in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"empcat2",
-          "description":"Employment category 2 jobs in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"empcat3",
-          "description":"Employment category 3 jobs in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"empcat4",
-          "description":"Employment category 4 jobs in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"empcat5",
-          "description":"Employment category 5 jobs in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"enr_k_6",
-          "description":"School enrollment K-6 in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"enr_7_12",
-          "description":"School enrollment 7-12 in TAZ"
-        },
-        {
-          "required":true,
-          "type":"string",
-          "name":"enr_col",
-          "description":"College enrollment in TAZ"
+          "required":false,
+          "type":"property",
+          "name":"hh_size10",
+          "display_if_filled":"hh_size9",
+          "description":"10-person households in TAZ"
         }
       ],
       "description":"Specify the location of each required parameter field in the input file. You may ignore certain properties, and you may also choose to specify a global value to be applied to all features (Global values are listed in the next section).",
