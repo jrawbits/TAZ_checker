@@ -6,7 +6,7 @@ def recToArray(arr):
     return arr.view((float,len(arr.dtype.names)))
 
 def toArray(fiter, varlist):
-    return [tuple([row[var] for var in varlist]) for row in fiter]
+    return [tuple([row[var] if var in row.keys() else 0 for var in varlist]) for row in fiter]
 
 def updateRow(row, field, val):
     row['properties'][field]=float(val)

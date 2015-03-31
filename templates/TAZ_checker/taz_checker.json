@@ -44,21 +44,13 @@
 			            "type": "property",
 			            "value": "S2"
 			        },
-			        "hh_size3": {
+			        "hh_wrk1": {
 			            "type": "property",
-			            "value": "S3"
+			            "value": "W0"
 			        },
-			        "hh_size4": {
+			        "hh_wrk2": {
 			            "type": "property",
-			            "value": "S4"
-			        },
-			        "hh_size5": {
-			            "type": "property",
-			            "value": "S5"
-			        },
-			        "hh_size6": {
-			            "type": "property",
-			            "value": "S6"
+			            "value": "W1"
 			        }
 			    },
 			    "results": {
@@ -394,6 +386,75 @@
           "name":"hh_size10",
           "display_if_filled":"hh_size9",
           "description":"10-person households in TAZ"
+        },
+        {
+          "required":false,
+          "type":"property",
+          "name":"hh_wrk1",
+          "description":"0-worker households in TAZ"
+        },
+        {
+          "required":false,
+          "type":"property",
+          "name":"hh_wrk2",
+          "display_if_filled":"hh_wrk1",
+          "description":"1-worker households in TAZ"
+        },
+        {
+          "required":false,
+          "type":"property",
+          "name":"hh_wrk3",
+          "display_if_filled":"hh_wrk2",
+          "description":"2-worker households in TAZ"
+        },
+        {
+          "required":false,
+          "type":"property",
+          "name":"hh_wrk4",
+          "display_if_filled":"hh_wrk3",
+          "description":"3-worker households in TAZ"
+        },
+        {
+          "required":false,
+          "type":"property",
+          "name":"hh_wrk5",
+          "display_if_filled":"hh_wrk4",
+          "description":"4-worker households in TAZ"
+        },
+        {
+          "required":false,
+          "type":"property",
+          "name":"hh_wrk6",
+          "display_if_filled":"hh_wrk5",
+          "description":"5-worker households in TAZ"
+        },
+        {
+          "required":false,
+          "type":"property",
+          "name":"hh_wrk7",
+          "display_if_filled":"hh_wrk6",
+          "description":"6-worker households in TAZ"
+        },
+        {
+          "required":false,
+          "type":"property",
+          "name":"hh_wrk8",
+          "display_if_filled":"hh_wrk7",
+          "description":"7-worker households in TAZ"
+        },
+        {
+          "required":false,
+          "type":"property",
+          "name":"hh_wrk9",
+          "display_if_filled":"hh_wrk8",
+          "description":"8-worker households in TAZ"
+        },
+        {
+          "required":false,
+          "type":"property",
+          "name":"hh_wrk10",
+          "display_if_filled":"hh_wrk9",
+          "description":"9-worker households in TAZ"
         }
       ],
       "description":"Specify the location of each required parameter field in the input file. You may ignore certain properties, and you may also choose to specify a global value to be applied to all features (Global values are listed in the next section).",
