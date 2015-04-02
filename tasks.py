@@ -83,48 +83,50 @@ def performModel(input_files,
 
                 hh_size_vars = ['hh_size1','hh_size2','hh_size3','hh_size4','hh_size5','hh_size6','hh_size7','hh_size8','hh_size9','hh_size10']
                 hh_wrk_vars = ['hh_wrk1','hh_wrk2','hh_wrk3','hh_wrk4','hh_wrk5','hh_wrk6','hh_wrk7','hh_wrk8','hh_wrk9','hh_wrk10']
+                hh_inc_vars = ['hh_inc1','hh_inc2','hh_inc3','hh_inc4','hh_inc5','hh_inc6','hh_inc7','hh_inc8','hh_inc9','hh_inc10']
+                hh_veh_vars = ['hh_veh1','hh_veh2','hh_veh3','hh_veh4','hh_veh5','hh_veh6']
+                hh_lfcyc_vars = ['hh_lfcyc1','hh_lfcyc2','hh_lfcyc3','hh_lfcyc4','hh_lfcyc5']
+                empcat_vars = ['empcat1','empcat2','empcat3','empcat4','empcat5','empcat6','empcat7','empcat8','empcat9','empcat10']
+                schenr_k12_vars = ['schenr_k12_cat1','schenr_k12_cat2','schenr_k12_cat3','schenr_k12_cat4','schenr_k12_cat5']
                 
-                req_vars = ['households','population','avgincome','vehicles','employment'] + hh_size_vars + hh_wrk_vars
-                print req_vars
-                
-                            #'hh_inc1','hh_inc2','hh_inc3','hh_inc4',
-                            #'hh_lfcyc1','hh_lfcyc2','hh_lfcyc3',
-                            #'hh_veh1','hh_veh2','hh_veh3','hh_veh4',
-                            #'empcat1','empcat2','empcat3','empcat4','empcat5',
-                            #'pop_age1','pop_age2','pop_age3',
-                            #'enr_k_6','enr_7_12','enr_col']
+                req_vars = ['households','population','avgincome','vehicles','employment'] + hh_size_vars + hh_wrk_vars + hh_inc_vars + hh_veh_vars + empcat_vars
+                req_vars = req_vars + hh_lfcyc_vars + schenr_k12_vars + ['pop_age1','pop_age2','pop_age3','enr_col']
+                #print req_vars
+
                 data_array = iface.toArray(file_iterator, req_vars)
-                print data_array
                 dt = np.dtype([(var,'float') for var in req_vars])
                 data_array = np.array(data_array,dt)
-                chkcols = ['chk_bin_hhsize','chk_bin_hhwrk']
-                #chkcols = ['chk_bin_hhsize','chk_bin_hhwrk','chk_bin_hhinc','chk_bin_hhveh','chk_bin_hhlfcyc','chk_bin_empcat',
-                #           'chk_avginc_ratio','chk_percapita_veh','chk_perwrk_veh','chk_pop_hhsize',
-                #           'regchk_empwrk','regchk_wrkage','regchk_schenr']
+                chkcols = ['chk_bin_hhsize','chk_bin_hhwrk','chk_bin_hhinc','chk_bin_hhveh','chk_bin_hhlfcyc','chk_bin_empcat',
+                           'chk_avginc_ratio','chk_percapita_veh','chk_perwrk_veh','chk_pop_hhsize',
+                           'regchk_empwrk','regchk_wrkage','regchk_schenr']
                 for newcol in chkcols:
-                    data_array = addCol(data_array,newcol,0.0)
+                    data_array = addStrCol(data_array,newcol)
                 data_array = addCol(data_array,'temp',0.0)
                 data_array = addCol(data_array,'workers',0.0)
                 data_array = addCol(data_array,'pop_hhsize',0.0)
-                data_array['workers'] = np.sum(iface.recToArray(data_array[['hh_wrk1','hh_wrk2','hh_wrk3','hh_wrk4']]),axis=1)
-                data_array['pop_hhsize'] = data_array['hh_size1']+2*data_array['hh_size2']+3*data_array['hh_size3']+4*data_array['hh_size4']+5*data_array['hh_size5']+6*data_array['hh_size6']
-
+                data_array['workers'] = np.sum(iface.recToArray(data_array[hh_wrk_vars]),axis=1)
+                data_array['pop_hhsize'] = data_array['hh_size1']
+                for i in range(2,11):
+                    data_array['pop_hhsize'] = data_array['pop_hhsize'] + i*data_array[hh_size_vars[i-1]]
+                
+                labels1 = ['Bins total matches','Bins total does not match']
+                labels2 = ['Less than min','Within Range', 'More than max']
                 #TAZ level checks
-                data_array['chk_bin_hhsize'] = checks.chkBinTotal(data_array,hh_size_vars,'households',bintol)
-                data_array['chk_bin_hhwrk'] = checks.chkBinTotal(data_array,hh_wrk_vars,'households',bintol)
-                #data_array['chk_bin_hhinc'] = checks.chkBinTotal(data_array,['hh_inc1','hh_inc2','hh_inc3','hh_inc4'],'households',bintol)
-                #data_array['chk_bin_hhlfcyc'] = checks.chkBinTotal(data_array,['hh_lfcyc1','hh_lfcyc2','hh_lfcyc3'],'households',bintol)
-                #data_array['chk_bin_hhveh'] = checks.chkBinTotal(data_array,['hh_veh1','hh_veh2','hh_veh3','hh_veh4'],'households',bintol)
-                #data_array['chk_bin_empcat'] = checks.chkBinTotal(data_array,['empcat1','empcat2','empcat3','empcat4','empcat5'],'employment',bintol)
-                #data_array['chk_avginc_ratio'] = checks.chkRange(data_array['avgincome']/regional_medinc,thresholds.get('avginc_ratio_threshmin'),thresholds.get('avginc_ratio_threshmax'))
-                #data_array['chk_percapita_veh'] = checks.chkRange(data_array['vehicles']/data_array['population'],thresholds.get('percap_veh_threshmin'),thresholds.get('percap_veh_threshmax'))
-                #data_array['chk_perwrk_veh'] = checks.chkRange(data_array['vehicles']/data_array['workers'],thresholds.get('perwrk_veh_threshmin'),thresholds.get('perwrk_veh_threshmax'))
-                #data_array['chk_pop_hhsize'] = checks.chkRange(data_array['pop_hhsize'],0,data_array['population'])
+                data_array['chk_bin_hhsize'] = checks.chkBinTotal(data_array,hh_size_vars,'households',bintol,labels1)
+                data_array['chk_bin_hhwrk'] = checks.chkBinTotal(data_array,hh_wrk_vars,'households',bintol,labels1)
+                data_array['chk_bin_hhinc'] = checks.chkBinTotal(data_array,hh_inc_vars,'households',bintol,labels1)
+                data_array['chk_bin_hhlfcyc'] = checks.chkBinTotal(data_array,hh_lfcyc_vars,'households',bintol,labels1)
+                data_array['chk_bin_hhveh'] = checks.chkBinTotal(data_array,hh_veh_vars,'households',bintol,labels1)
+                data_array['chk_bin_empcat'] = checks.chkBinTotal(data_array,empcat_vars,'employment',bintol,labels1)
+                data_array['chk_avginc_ratio'] = checks.chkRange(data_array['avgincome']/regional_medinc,thresholds.get('avginc_ratio_threshmin'),thresholds.get('avginc_ratio_threshmax'),labels2)
+                data_array['chk_percapita_veh'] = checks.chkRange(data_array['vehicles']/data_array['population'],thresholds.get('percap_veh_threshmin'),thresholds.get('percap_veh_threshmax'),labels2)
+                data_array['chk_perwrk_veh'] = checks.chkRange(data_array['vehicles']/data_array['workers'],thresholds.get('perwrk_veh_threshmin'),thresholds.get('perwrk_veh_threshmax'),labels2)
+                data_array['chk_pop_hhsize'] = checks.chkRange(data_array['pop_hhsize'],0,data_array['population'],labels2)
 
                 #Regional checks
-                #data_array['regchk_empwrk'] = checks.chkRange(np.array([np.sum(data_array['employment'])/np.sum(data_array['workers'])]),thresholds.get('empwrk_ratio_threshmin'),thresholds.get('empwrk_ratio_threshmax'))
-                #data_array['regchk_wrkage'] = checks.chkRange(np.array([np.sum(data_array['workers'])]),0,np.sum(data_array['pop_age2']+data_array['pop_age3'])*regional_nonwrk_pct/100)
-                #data_array['regchk_schenr'] = checks.chkRange(np.array([np.sum(data_array['enr_k_6']+data_array['enr_7_12'])]),0,np.sum(data_array['pop_age1'])*(1-regional_chu5_pct/100))
+                data_array['regchk_empwrk'] = checks.chkRange(np.array([np.sum(data_array['employment'])/np.sum(data_array['workers'])]),thresholds.get('empwrk_ratio_threshmin'),thresholds.get('empwrk_ratio_threshmax'),labels2)
+                data_array['regchk_wrkage'] = checks.chkRange(np.array([np.sum(data_array['workers'])]),0,np.sum(data_array['pop_age2']+data_array['pop_age3'])*regional_nonwrk_pct/100,labels2)
+                data_array['regchk_schenr'] = checks.chkRange(np.array([np.sum(iface.recToArray(data_array[schenr_k12_vars]))]),0,np.sum(data_array['pop_age1'])*(1-regional_chu5_pct/100),labels2)
                 
                 result_cols = [setup['results'][col]['value'] for col in chkcols]
                 iface.addResult(file_iterator,result_cols,data_array,chkcols)
@@ -184,3 +186,6 @@ def performModel(input_files,
 
 def addCol(arr, col, factor):
     return recfuntions.append_fields(arr,col,np.ones(len(arr))*factor,usemask=False)
+
+def addStrCol(arr, col):
+    return recfuntions.append_fields(arr,col,np.repeat('',len(arr)),dtypes='|S50',usemask=False)
