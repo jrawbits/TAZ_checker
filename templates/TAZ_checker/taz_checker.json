@@ -40,17 +40,73 @@
 			            "type": "property",
 			            "value": "S1"
 			        },
+			        "hh_size2": {
+			            "type": "property",
+			            "value": "S2"
+			        },
+			        "hh_size3": {
+			            "type": "property",
+			            "value": "S3"
+			        },
+			        "hh_size4": {
+			            "type": "property",
+			            "value": "S4"
+			        },
+			        "hh_size5": {
+			            "type": "property",
+			            "value": "S5"
+			        },
+			        "hh_size6": {
+			            "type": "property",
+			            "value": "S6"
+			        },
 			        "hh_wrk1": {
 			            "type": "property",
 			            "value": "W0"
+			        },
+			        "hh_wrk2": {
+			            "type": "property",
+			            "value": "W1"
+			        },
+			        "hh_wrk3": {
+			            "type": "property",
+			            "value": "W2"
+			        },
+			        "hh_wrk4": {
+			            "type": "property",
+			            "value": "W3"
 			        },
 			        "hh_inc1": {
 			            "type": "property",
 			            "value": "I1"
 			        },
+			        "hh_inc2": {
+			            "type": "property",
+			            "value": "I2"
+			        },
+			        "hh_inc3": {
+			            "type": "property",
+			            "value": "I3"
+			        },
+			        "hh_inc4": {
+			            "type": "property",
+			            "value": "I4"
+			        },
 			        "hh_veh1": {
 			            "type": "property",
 			            "value": "hh0veh"
+			        },
+			        "hh_veh2": {
+			            "type": "property",
+			            "value": "hh1veh"
+			        },
+			        "hh_veh3": {
+			            "type": "property",
+			            "value": "hh2veh"
+			        },
+			        "hh_veh4": {
+			            "type": "property",
+			            "value": "hh3veh"
 			        },
 			        "pop_age1": {
 			            "type": "property",
@@ -67,6 +123,22 @@
 			        "empcat1": {
 			            "type": "property",
 			            "value": "emp1"
+			        },
+			        "empcat2": {
+			            "type": "property",
+			            "value": "emp2"
+			        },
+			        "empcat3": {
+			            "type": "property",
+			            "value": "emp3"
+			        },
+			        "empcat4": {
+			            "type": "property",
+			            "value": "emp4"
+			        },
+			        "empcat5": {
+			            "type": "property",
+			            "value": "emp5"
 			        },
 			        "enr_k12_cat1": {
 			            "type": "property",
