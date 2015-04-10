@@ -14,6 +14,8 @@ import pandas as pd
 import numpy.lib.recfunctions as recfuntions
 import data_interface as iface
 import checks
+import csv
+import cStringIO as StringIO
 
 @task(ignore_result=False)
 def performModel(input_files,
@@ -75,11 +77,13 @@ def performModel(input_files,
                     regional_medinc = parameters.get('medinc_param')
                     regional_nonwrk_pct = parameters.get('nonwrk_param')
                     regional_chu5_pct = parameters.get('chu5_param')
+                    client.updateStatus('Obtained run parameters.')
                 thresh_iterator=ConfigIterator(input_files, 'thresholds', setup)
                 if thresh_iterator.iterable:
                     raise Exception('Thresholds cannot be iterable')
                 else:
                     thresholds=thresh_iterator.data
+                    client.updateStatus('Obtained run thresholds.')
 
                 hh_size_vars = ['hh_size1','hh_size2','hh_size3','hh_size4','hh_size5','hh_size6','hh_size7','hh_size8','hh_size9','hh_size10']
                 hh_wrk_vars = ['hh_wrk1','hh_wrk2','hh_wrk3','hh_wrk4','hh_wrk5','hh_wrk6','hh_wrk7','hh_wrk8','hh_wrk9','hh_wrk10']
@@ -96,6 +100,7 @@ def performModel(input_files,
                 data_array = iface.toArray(file_iterator, req_vars)
                 dt = np.dtype([(var,'float') for var in req_vars])
                 data_array = np.array(data_array,dt)
+                client.updateStatus('Data conversion to array complete.')
                 chkcols = ['chk_bin_hhsize','chk_bin_hhwrk','chk_bin_hhinc','chk_bin_hhveh','chk_bin_hhlfcyc','chk_bin_empcat',
                            'chk_avginc_ratio','chk_percapita_veh','chk_perwrk_veh','chk_pop_hhsize',
                            'regchk_empwrk','regchk_wrkage','regchk_schenr']
@@ -123,13 +128,17 @@ def performModel(input_files,
                 data_array['chk_perwrk_veh'] = checks.chkRange(data_array['vehicles']/data_array['workers'],thresholds.get('perwrk_veh_threshmin'),thresholds.get('perwrk_veh_threshmax'),labels2)
                 data_array['chk_pop_hhsize'] = checks.chkRange(data_array['pop_hhsize'],0,data_array['population'],labels2)
 
+                client.updateStatus('TAZ level checks complete.')
                 #Regional checks
                 data_array['regchk_empwrk'] = checks.chkRange(np.array([np.sum(data_array['employment'])/np.sum(data_array['workers'])]),thresholds.get('empwrk_ratio_threshmin'),thresholds.get('empwrk_ratio_threshmax'),labels2)
                 data_array['regchk_wrkage'] = checks.chkRange(np.array([np.sum(data_array['workers'])]),0,np.sum(data_array['pop_age2']+data_array['pop_age3'])*regional_nonwrk_pct/100,labels2)
                 data_array['regchk_schenr'] = checks.chkRange(np.array([np.sum(iface.recToArray(data_array[schenr_k12_vars]))]),0,np.sum(data_array['pop_age1'])*(1-regional_chu5_pct/100),labels2)
+
+                client.updateStatus('Regional checks complete.')
                 
                 result_cols = [setup['results'][col]['value'] for col in chkcols]
                 iface.addResult(file_iterator,result_cols,data_array,chkcols)
+                client.updateStatus('Updated run results.')
                 
             elif subtool_name.lower()=='scn_compare':
                 thresh_iterator=ConfigIterator(input_files, 'thresholds', setup)
@@ -137,6 +146,7 @@ def performModel(input_files,
                     raise Exception('Thresholds cannot be iterable')
                 else:
                     thresholds=thresh_iterator.data
+                    client.updateStatus('Obtained run thresholds.')
 
                 req_vars = ['tazid','households','population','vehicles']
                 data_array = iface.toArray(file_iterator, req_vars)
@@ -174,12 +184,18 @@ def performModel(input_files,
         # model.
         #result_field=setup['results']['chk_bin_hhsize']['value']
         #units='HH size bins total check'
+
+        f2 = 'Desc,value\r\nThis is a test,100\r\nThis is a test,200\r\nThis is a test,300'
+        
         client.updateResults(result_field=None,
                              units=None,
                              result_file='data',
                              files={'data': ('data.{0}'.format(file_iterator.extension),
                                              file_iterator.getDataFile(), 
-                                             file_iterator.content_type)
+                                             file_iterator.content_type),
+                                    'f2': ('f2.csv',
+                                            f2, 
+                                            'text/csv')
                                     })
     for namespace, fileinfo in input_files.iteritems():
         os.unlink(fileinfo[0])        
