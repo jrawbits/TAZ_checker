@@ -64,6 +64,7 @@ def performModel(input_files,
                              failure=True)
     else:    
         client.updateStatus('Parameter & data file validation complete.')
+        summ_text = ''
         try:
             if subtool_name.lower()=='taz_checker':
                 min = None
@@ -131,7 +132,7 @@ def performModel(input_files,
                 client.updateStatus('TAZ level checks complete.')
                 #Regional checks
                 data_array['regchk_empwrk'] = checks.chkRange(np.array([np.sum(data_array['employment'])/np.sum(data_array['workers'])]),thresholds.get('empwrk_ratio_threshmin'),thresholds.get('empwrk_ratio_threshmax'),labels2)
-                data_array['regchk_wrkage'] = checks.chkRange(np.array([np.sum(data_array['workers'])]),0,np.sum(data_array['pop_age2']+data_array['pop_age3'])*regional_nonwrk_pct/100,labels2)
+                data_array['regchk_wrkage'] = checks.chkRange(np.array([np.sum(data_array['workers'])]),0,np.sum(data_array['pop_age2']+data_array['pop_age3'])*(1-regional_nonwrk_pct/100),labels2)
                 data_array['regchk_schenr'] = checks.chkRange(np.array([np.sum(iface.recToArray(data_array[schenr_k12_vars]))]),0,np.sum(data_array['pop_age1'])*(1-regional_chu5_pct/100),labels2)
 
                 client.updateStatus('Regional checks complete.')
@@ -139,6 +140,25 @@ def performModel(input_files,
                 result_cols = [setup['results'][col]['value'] for col in chkcols]
                 iface.addResult(file_iterator,result_cols,data_array,chkcols)
                 client.updateStatus('Updated run results.')
+
+                #Write out a summary file for the run
+                summ_text = 'Description,Value'
+                summ_text += '\r\n' + 'Total number of TAZs,' + str(len(data_array))
+                summ_text += '\r\n' + 'Number of TAZs with HH Size bins total mismatch,' + str(len(data_array[data_array['chk_bin_hhsize']==labels1[1]]))
+                summ_text += '\r\n' + 'Number of TAZs with HH Worker bins total mismatch,' + str(len(data_array[data_array['chk_bin_hhwrk']==labels1[1]]))
+                summ_text += '\r\n' + 'Number of TAZs with HH Income bins total mismatch,' + str(len(data_array[data_array['chk_bin_hhinc']==labels1[1]]))
+                summ_text += '\r\n' + 'Number of TAZs with HH Life-cycle bins total mismatch,' + str(len(data_array[data_array['chk_bin_hhlfcyc']==labels1[1]]))
+                summ_text += '\r\n' + 'Number of TAZs with HH Vehicle bins total mismatch,' + str(len(data_array[data_array['chk_bin_hhveh']==labels1[1]]))
+                summ_text += '\r\n' + 'Number of TAZs with Employment bins total mismatch,' + str(len(data_array[data_array['chk_bin_empcat']==labels1[1]]))
+                summ_text += '\r\n' + 'Number of TAZs with Ratio to regional median income outside range min: %s max: %s,' %(thresholds.get('avginc_ratio_threshmin'),thresholds.get('avginc_ratio_threshmax')) + str(len(data_array[data_array['chk_avginc_ratio']!=getRangeLabel(labels2[1],thresholds.get('avginc_ratio_threshmin'),thresholds.get('avginc_ratio_threshmax'))]))
+                summ_text += '\r\n' + 'Number of TAZs with Per capita vehicles outside range min: %s max: %s,' %(thresholds.get('percap_veh_threshmin'),thresholds.get('percap_veh_threshmax')) + str(len(data_array[data_array['chk_percapita_veh']!=getRangeLabel(labels2[1],thresholds.get('percap_veh_threshmin'),thresholds.get('percap_veh_threshmax'))]))
+                summ_text += '\r\n' + 'Number of TAZs with Per worker vehicle outside range min: %s max: %s,' %(thresholds.get('perwrk_veh_threshmin'),thresholds.get('perwrk_veh_threshmax')) + str(len(data_array[data_array['chk_perwrk_veh']!=getRangeLabel(labels2[1],thresholds.get('perwrk_veh_threshmin'),thresholds.get('perwrk_veh_threshmax'))]))
+                summ_text += '\r\n' + 'Number of TAZs with Population less than that implied by HH Size bins,' + str(len(data_array[data_array['chk_pop_hhsize']!=labels2[1]]))
+                summ_text += '\r\n' + ' , '
+                summ_text += '\r\n' + ' , '
+                summ_text += '\r\n' + 'Regional employment-workers ratio within range min: %s max: %s,' %(thresholds.get('empwrk_ratio_threshmin'),thresholds.get('empwrk_ratio_threshmax')) + str(len(data_array[data_array['regchk_empwrk']==getRangeLabel(labels2[1],thresholds.get('empwrk_ratio_threshmin'),thresholds.get('empwrk_ratio_threshmax'))]) == len(data_array))
+                summ_text += '\r\n' + 'Regional workers less than working age population,'+ str(len(data_array[data_array['regchk_wrkage']==getRangeLabel(labels2[1],0,np.sum(data_array['pop_age2']+data_array['pop_age3'])*(1-regional_nonwrk_pct/100))]) == len(data_array))
+                summ_text += '\r\n' + 'Regional enrollment less than school age population,'+ str(len(data_array[data_array['regchk_schenr']==getRangeLabel(labels2[1],0,np.sum(data_array['pop_age1'])*(1-regional_chu5_pct/100))]) == len(data_array))
                 
             elif subtool_name.lower()=='scn_compare':
                 thresh_iterator=ConfigIterator(input_files, 'thresholds', setup)
@@ -185,18 +205,26 @@ def performModel(input_files,
         #result_field=setup['results']['chk_bin_hhsize']['value']
         #units='HH size bins total check'
 
-        f2 = 'Desc,value\r\nThis is a test,100\r\nThis is a test,200\r\nThis is a test,300'
-        
-        client.updateResults(result_field=None,
+        if summ_text == '':
+            client.updateResults(result_field=None,
+                             units=None,
+                             result_file='data',
+                             files={'data': ('data.{0}'.format(file_iterator.extension),
+                                             file_iterator.getDataFile(), 
+                                             file_iterator.content_type)})
+        else:
+            client.updateResults(result_field=None,
                              units=None,
                              result_file='data',
                              files={'data': ('data.{0}'.format(file_iterator.extension),
                                              file_iterator.getDataFile(), 
                                              file_iterator.content_type),
-                                    'f2': ('f2.csv',
-                                            f2, 
+                                    'summary': ('summary.csv',
+                                            summ_text, 
                                             'text/csv')
                                     })
+            
+        
     for namespace, fileinfo in input_files.iteritems():
         os.unlink(fileinfo[0])        
 
@@ -205,3 +233,7 @@ def addCol(arr, col, factor):
 
 def addStrCol(arr, col):
     return recfuntions.append_fields(arr,col,np.repeat('',len(arr)),dtypes='|S50',usemask=False)
+
+def getRangeLabel(label, minval, maxval):
+    return label + ' [' + str(minval) + ', ' + str(maxval) + ']'
+    

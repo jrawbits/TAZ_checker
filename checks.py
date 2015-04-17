@@ -22,10 +22,12 @@ def chkRange(chk_array, minval, maxval, labels=None):
     else:
         if (isinstance(minval,float) or isinstance(minval,int)) and (isinstance(maxval,float) or isinstance(maxval,int)):
             retval = np.repeat(np.array(labels[1] + ' [' + str(minval) + ', ' + str(maxval) + ']',dtype='|S50'),len(chk_array))
+            retval[chk_array<minval] = labels[0] + ' ' + str(minval)
+            retval[chk_array>maxval] = labels[2] + ' ' + str(maxval)
         else:
             retval = np.repeat(np.array(labels[1],dtype='|S50'),len(chk_array))
-        retval[chk_array<minval] = labels[0]
-        retval[chk_array>maxval] = labels[2]
+            retval[chk_array<minval] = labels[0]
+            retval[chk_array>maxval] = labels[2]
     return retval
 
 def pctChange(chk_array,basecol,altcol):

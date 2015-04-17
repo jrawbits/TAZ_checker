@@ -1,7 +1,7 @@
 
 {
   "info":{
-    "text":"\n<P>This tool implements a consistency and validity checker for TAZ files</P>\n",
+    "text":"\n<P>Given the complexity involved in creating TAZ datasets, which require the reconciliation of multiple spatial databases, there are many opportunities for inconsistencies between the values of fields representing interdependent socioeconomic attributes. These inconsistencies may not be immediately evident, but can undermine the validity of forecasts developed using the faulty data. Moreover, many trip-based models may be run 'successfully' and produce a forecast, despite inconsistencies in the TAZ data. It is therefore important to check TAZ data for inconsistencies.</P>\n<P>This tool implements a consistency and validity checker for TAZ datasets. The checks focus on identifying impossible or implausible combinations of demographic data, such as more resident workers than people residing in a zone, or zones with significantly more household vehicles than people, etc. This tool could improve the quality of the input data to travel models and avoid critical analysis errors.</P>\n<P>It would be ideal if users could upload input TAZ data in GeoJSON format since that the results of the tests can be visualized. If the users have a TAZ shapefile with all the socioenomic attributes, they can zip all files (*.shp, *.shx, *.dbf etc) into one file and upload it to the NMTK environment. The uploaded file can then be downloaded in GeoJSON format to be re-uploaded again.</P>\n",
     "version":"0.1",
     "name":"TMIP TAZ Checker"
   },
@@ -287,7 +287,7 @@
       "description":"You may override the default field name in which results from this tool are reported by entering a different name here.  The name you enter may be adjusted so it is not the same as any fields already in your input data.",
       "elements":[
         {
-          "description":"HH Size bins total check result",
+          "description":"HH Size bins total check result\n(Checks if difference between total of households in all size bins and total TAZ housholds is within tolerance.)",
           "default":"chk_bin_hhsize",
           "required":true,
           "label":"Result Field",
