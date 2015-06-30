@@ -9,13 +9,13 @@
              "files": [
                  {
                    "namespace":"data",
-                   "checksum": "d1e187b4d32f88774996c9da39963aff7f7c47d4",
+                   "checksum": "d54d92032df225edf8708677ee172c6ea55b4062",
                    "uri": "/static/TAZ_checker/wfrc_sample.geojson",
                    "content-type":"application/json"
                  },
                  {
                    "namespace":"data2",
-                   "checksum": "1dfcda42cd40c09c8800990708d6cc7fc6bfca6e",
+                   "checksum": "8285fe5ea41196c93a6af0f6561e2b4ac5b4e321",
                    "uri": "/static/TAZ_checker/wfrc_sample_alt.geojson",
                    "content-type":"application/json"
                  }

@@ -9,7 +9,7 @@
              "files": [
                  {
                    "namespace":"data",
-                   "checksum": "d1e187b4d32f88774996c9da39963aff7f7c47d4",
+                   "checksum": "d54d92032df225edf8708677ee172c6ea55b4062",
                    "uri": "/static/TAZ_checker/wfrc_sample.geojson",
                    "content-type":"application/json"
                  }
