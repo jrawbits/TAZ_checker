@@ -37,7 +37,11 @@
 			        "vehicles": {
 			            "type": "property",
 			            "value": "TOTVEH"
-			        }
+			        },
+			        "employment": {
+			            "type": "property",
+			            "value": "TOTEMP"
+			        }			        
 			    },
 			    "data2": {
 			    		"tazid2": {
@@ -55,6 +59,10 @@
 			        "vehicles2": {
 			            "type": "property",
 			            "value": "TOTVEH"
+			        },
+			        "employment2": {
+			            "type": "property",
+			            "value": "TOTEMP"
 			        }
 			    },
 			    "results": {
@@ -69,6 +77,10 @@
 			        "pctchg_veh": {
 			            "type": "string",
 			            "value": "pctchg_veh"
+			        },
+			        "pctchg_emp": {
+			            "type": "string",
+			            "value": "pctchg_emp"
 			        }
 			    },
 			    "parameters": {
