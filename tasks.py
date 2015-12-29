@@ -168,17 +168,17 @@ def performModel(input_files,
                     thresholds=thresh_iterator.data
                     client.updateStatus('Obtained run thresholds.')
 
-                req_vars = ['tazid','households','population','vehicles']
+                req_vars = ['tazid','households','population','vehicles','employment']
                 data_array = iface.toArray(file_iterator, req_vars)
                 dt = np.dtype([(var,'float') for var in req_vars])
                 data_array = np.array(data_array,dt)
-                req_vars = ['tazid2','households2','population2','vehicles2']
+                req_vars = ['tazid2','households2','population2','vehicles2','employment2']
                 data_array2 = iface.toArray(file_iterator2, req_vars)
-                req_vars = ['tazid','households2','population2','vehicles2']
+                req_vars = ['tazid','households2','population2','vehicles2','employment2']
                 dt = np.dtype([(var,'float') for var in req_vars])
                 data_array2 = np.array(data_array2,dt)
                 
-                chkcols = ['pctchg_hh','pctchg_pop','pctchg_veh']
+                chkcols = ['pctchg_hh','pctchg_pop','pctchg_veh','pctchg_emp']
                 for newcol in chkcols:
                     data_array = addCol(data_array,newcol,0.0)
 
@@ -188,6 +188,7 @@ def performModel(input_files,
                 data_array['pctchg_hh'][data_array['households']>0] = checks.pctChange(data_array,'households','households2')
                 data_array['pctchg_pop'][data_array['population']>0] = checks.pctChange(data_array,'population','population2')
                 data_array['pctchg_veh'][data_array['vehicles']>0] = checks.pctChange(data_array,'vehicles','vehicles2') 
+                data_array['pctchg_emp'][data_array['employment']>0] = checks.pctChange(data_array,'employment','employment2')
                 result_cols = [setup['results'][col]['value'] for col in chkcols]
                 match_arr_col = 'tazid'
                 match_result_col = setup['data'][match_arr_col]['value']
