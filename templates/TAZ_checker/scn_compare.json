@@ -22,7 +22,7 @@
             ],
             "config": {
 			    "data": {
-							"tazid": {
+				"tazid": {
 			            "type": "property",
 			            "value": "TAZID"
 			        },			    
@@ -180,6 +180,7 @@
           "name":"vehicles",
           "description":"Total vehicles in TAZ"
         },
+        {
           "required":true,
           "type":"property",
           "name":"employment",
