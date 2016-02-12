@@ -37,7 +37,11 @@
 			        "vehicles": {
 			            "type": "property",
 			            "value": "TOTVEH"
-			        }
+			        },
+			        "employment": {
+			            "type": "property",
+			            "value": "TOTEMP"
+			        }			        
 			    },
 			    "data2": {
 			    		"tazid2": {
@@ -55,6 +59,10 @@
 			        "vehicles2": {
 			            "type": "property",
 			            "value": "TOTVEH"
+			        },
+			        "employment2": {
+			            "type": "property",
+			            "value": "TOTEMP"
 			        }
 			    },
 			    "results": {
@@ -69,6 +77,10 @@
 			        "pctchg_veh": {
 			            "type": "string",
 			            "value": "pctchg_veh"
+			        },
+			        "pctchg_emp": {
+			            "type": "string",
+			            "value": "pctchg_emp"
 			        }
 			    },
 			    "parameters": {
@@ -125,6 +137,14 @@
           "label":"Result Field",
           "type":"string",
           "name":"pctchg_veh"
+        },
+        {
+          "description":"Total employment percent change",
+          "default":"pctchg_emp",
+          "required":true,
+          "label":"Result Field",
+          "type":"string",
+          "name":"pctchg_emp"
         }
       ],
       "type":"ConfigurationPage",
@@ -149,18 +169,22 @@
           "description":"Total households in TAZ"
         },
         {
-          "required":false,
+          "required":true,
           "type":"property",
           "name":"population",
           "description":"Total population in TAZ"
         },
         {
-          "required":false,
+          "required":true,
           "type":"property",
           "name":"vehicles",
-          "display_if_filled": "population",
           "description":"Total vehicles in TAZ"
-        }
+        },
+          "required":true,
+          "type":"property",
+          "name":"employment",
+          "description":"Total employment in TAZ"
+        }        
       ],
       "description":"Specify inputs for base TAZ file",
       "required":true,
@@ -195,7 +219,13 @@
           "type":"property",
           "name":"vehicles2",
           "description":"Total vehicles in TAZ"
-        }
+        },
+        {
+          "required":true,
+          "type":"property",
+          "name":"employment2",
+          "description":"Total employment in TAZ"
+        }        
       ],
       "description":"Specify inputs for alternate scenario TAZ file",
       "required":true,
